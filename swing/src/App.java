@@ -2,49 +2,73 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class App implements ActionListener {
-    private int count = 0;
+import Service.GradesService;
+import UI.AppPanel;
+import UI.AppTitle;
+import UI.GradesPanel;
+import UI.ResultLine;
 
-    private JFrame frame;
-    private JPanel panel;
-    private JLabel label;
+public class App implements ActionListener {
+
+    private GradesService gradeService = new GradesService();
+
+    private JFrame appFrame = new JFrame();
+    private JPanel appPanel = new JPanel();
+    private AppPanel title = new AppTitle("Nota para o Atendimento");
+    private AppPanel gradesPanel = new GradesPanel(this);
+    private AppPanel gradeTitle = new AppTitle("NOTA ATUAL");
+    private AppPanel gradeValue = new AppTitle("4.6");
+    private ResultLine[] results = {
+            new ResultLine("Quantidade de Votos 1"),
+            new ResultLine("Quantidade de Votos 2"),
+            new ResultLine("Quantidade de Votos 3"),
+            new ResultLine("Quantidade de Votos 4"),
+            new ResultLine("Quantidade de Votos 5"),
+    };
 
     public App() {
-        frame = new JFrame("example");
+        appPanel.setLayout(new GridLayout(9, 1));
 
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(3, 1));
+        appPanel.add(title.getPanel());
+        appPanel.add(gradesPanel.getPanel());
+        appPanel.add(gradeTitle.getPanel());
+        appPanel.add(gradeValue.getPanel());
 
-        JButton button = new JButton("Button");
-        button.addActionListener(this);
+        updateUI();
 
-        label = new JLabel("Number of clicks: 0");
+        for (ResultLine resultLine : results) {
+            appPanel.add(resultLine.getPanel());
+        }
 
-        panel.add(button);
-        panel.add(label);
+        appFrame.add(appPanel, BorderLayout.CENTER);
 
-        frame.add(panel, BorderLayout.CENTER);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("One Simple Title");
-        frame.pack();
-        frame.setVisible(true);
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setTitle("Sistema de Avaliação");
+        appFrame.pack();
+        appFrame.setVisible(true);
     }
 
     public static void main(String args[]) {
         new App();
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
-        count++;
-        label.setText("Number of clicks: " + count);
+        Integer number = Integer.parseInt(e.getActionCommand());
+        Integer index = number - 1;
+        gradeService.incrementOn(index);
+        updateUI();
+    }
+
+    public void updateUI() {
+        gradeValue.setValue(gradeService.getAverage());
+
+        for (int i = 0; i < gradeService.getGradesList().length; i++) {
+            Integer value = gradeService.getGradesList()[i];
+            results[i].setValue(String.valueOf(value));
+        }
     }
 }
