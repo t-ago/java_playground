@@ -7,18 +7,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GradeButton implements AppPanel {
+public class GradeButtonPanel implements AppPanel {
     private JPanel panel = new JPanel();
     private JButton button = new JButton();
     private JLabel label = new JLabel();
 
-    public GradeButton(String text) {
+    public GradeButtonPanel(String text) {
         button.setText(text);
-        panel.setLayout(new GridLayout(1, 1));
+        panel.setLayout(new GridLayout(2, 1));
         panel.add(button);
     }
 
-    public GradeButton(String text, String description) {
+    public GradeButtonPanel(String text, String description) {
         button.setText(text);
         label.setText(description);
 

@@ -8,12 +8,12 @@ import javax.swing.JPanel;
 public class GradesPanel implements AppPanel {
     private JPanel gradesPanel = new JPanel();
     private JPanel gradesNumbersPanel = new JPanel();
-    private GradeButton[] buttons = {
-            new GradeButton("1", "Péssimo"),
-            new GradeButton("2"),
-            new GradeButton("3"),
-            new GradeButton("4"),
-            new GradeButton("5", "Excelente")
+    private GradeButtonPanel[] buttons = {
+            new GradeButtonPanel("1", "Péssimo"),
+            new GradeButtonPanel("2"),
+            new GradeButtonPanel("3"),
+            new GradeButtonPanel("4"),
+            new GradeButtonPanel("5", "Excelente")
     };
 
     public GradesPanel(ActionListener listener) {
@@ -21,7 +21,7 @@ public class GradesPanel implements AppPanel {
         fl.setAlignOnBaseline(true);
         gradesNumbersPanel.setLayout(fl);
 
-        for (GradeButton gradeButton : buttons) {
+        for (GradeButtonPanel gradeButton : buttons) {
             gradeButton.addListener(listener);
             gradesNumbersPanel.add(gradeButton.getPanel());
         }

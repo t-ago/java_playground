@@ -10,7 +10,7 @@ import Service.GradesService;
 import UI.AppPanel;
 import UI.AppTitle;
 import UI.GradesPanel;
-import UI.ResultLine;
+import UI.ResultPanel;
 
 public class App implements ActionListener {
 
@@ -22,12 +22,12 @@ public class App implements ActionListener {
     private AppPanel gradesPanel = new GradesPanel(this);
     private AppPanel gradeTitle = new AppTitle("NOTA ATUAL");
     private AppPanel gradeValue = new AppTitle("4.6");
-    private ResultLine[] results = {
-            new ResultLine("Quantidade de Votos 1"),
-            new ResultLine("Quantidade de Votos 2"),
-            new ResultLine("Quantidade de Votos 3"),
-            new ResultLine("Quantidade de Votos 4"),
-            new ResultLine("Quantidade de Votos 5"),
+    private ResultPanel[] results = {
+            new ResultPanel("Quantidade de Votos 1"),
+            new ResultPanel("Quantidade de Votos 2"),
+            new ResultPanel("Quantidade de Votos 3"),
+            new ResultPanel("Quantidade de Votos 4"),
+            new ResultPanel("Quantidade de Votos 5"),
     };
 
     public App() {
@@ -40,7 +40,7 @@ public class App implements ActionListener {
 
         updateUI();
 
-        for (ResultLine resultLine : results) {
+        for (ResultPanel resultLine : results) {
             appPanel.add(resultLine.getPanel());
         }
 
